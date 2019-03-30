@@ -4,7 +4,7 @@ class CreateArticles < ActiveRecord::Migration[5.2]
       t.string :title
  
 
-      print "\n------------------------------------------------\n"
+      # print "\n------------------------------------------------\n"
       # print "t.string: #{t.string}\n"
       # print "t.string.class: #{t.string.class}\n"
       # print "t.string(:title): #{t.string(:title)}\n"
@@ -15,7 +15,7 @@ class CreateArticles < ActiveRecord::Migration[5.2]
       # print "t.methods - Object.methods: #{t.methods - Object.methods}\n"
 
       # For more info, check out hte TableDefinition object in the Rails API.
-      print "------------------------------------------------\n"
+      # print "--------------------------------------------------\n"
     end
   end
 end

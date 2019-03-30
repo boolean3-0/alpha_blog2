@@ -4,4 +4,18 @@ Rails.application.routes.draw do
 
   root 'pages#home'
   get 'about', to: 'pages#about'
+
+
+  # This one line gave us:
+  # a new article path
+  # post, to create articles
+  # an edit article path
+  # a patch, to update articles
+  # a delete article path
+  # show article path
+  # index article path
+  resources :articles
+
+
+
 end
