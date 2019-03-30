@@ -1,3 +1,7 @@
+<%# This file wraps all of your views. %>
+<%# Thus, anything you put in here will be displayed on every page. %>
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -10,6 +14,25 @@
   </head>
 
   <body>
+
+    <%# <%
+      print "\n--------------------------------------------------\n"
+      print "INSIDE application.html.erb\n"
+      print "flash: #{flash}\n"
+      print "flash.class: #{flash.class}\n"
+      print "flash[:notice]: #{flash[:notice]}\n"
+      print "--------------------------------------------------\n\n"
+    %> 
+    
+
+    <% flash.each do |name, msg| %>
+
+      <ul>
+        <li><%= msg %></li>
+      </ul>
+
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

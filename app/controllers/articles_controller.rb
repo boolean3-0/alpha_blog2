@@ -8,11 +8,7 @@ class ArticlesController < ApplicationController
         # https://medium.com/@eric.programmer/removing-the-hack-in-rails-controllers-52396463c40d
         @article = Article.new
 
-        # print "\n------------------------------------------------\n"
-        # print "INSIDE ArticlesController, new method\n"
-        # print "@article: #{@article}\n"
-        # print "@article.class: #{@article.class}\n"
-        # print "--------------------------------------------------\n"
+
 
     end
 
@@ -26,42 +22,50 @@ class ArticlesController < ApplicationController
         # Note: params is actually an object, not a Ruby Hash!
         # See: https://eileencodes.com/posts/actioncontroller-parameters-now-returns-an-object-instead-of-a-hash/
         # render(plain: (params[:article].inspect))
-
-        # As proven by the code below, Rails throws away instances of
-        # ArticlesController (this class) after calling a single instance method.
-        # print "\n------------------------------------------------\n"
-        # print "INSIDE ArticlesController, create method\n"
-        # print "@article: #{@article}\n" #=> (blank)
-        # print "@article.class: #{@article.class}\n" #=> NilClass
-        # print "--------------------------------------------------\n"
         
-        # Create new article
         @article = Article.new(article_params)
 
-        # Add article to database
-        @article.save
+        if @article.save
+            # See: https://api.rubyonrails.org/classes/ActionDispatch/Flash.html
+            # Also: http://www.xyzpub.com/en/ruby-on-rails/3.2/flash.html
+            flash[:notice] = "Article was successfully created."
 
-        # Redirect to the show action. We must include @article
-        # as an argument because the show action requires an article
-        # id as part of its URL. (Run "rails routes" to see this.)
-        redirect_to articles_show(@article)
+            # This redirects to the articles#show action for this article.
+            # Remember, to get the path for the show action, run "rails routes"
+            # and then look at the "Prefix" column for the articles#show action. Append
+            # "_path" to what you see there to get the path. We must pass in @article
+            # because the URL requires the article id. (I guess Rails pulls out
+            # the article id behind the scenes.)
+            redirect_to article_path(@article)
+        else
+            # Render the new.html.erb template once again if we fail to save
+            # We could also use a symbol: "render :new"
+            render 'new'
+        end
 
+    end
+        
+    def show
+
+        # print_to_console(params)
+
+        @article = Article.find(params[:id])
     end
 
     private
     def article_params
-
-        # print "\n--------------------------------------------------\n"
-        # print "params: #{params}\n\n"
-        # print "params.require(:article): #{params.require(:article)}\n\n"
-        # print "params.require(:article).permit(:title, :description):
-        # #{params.require(:article).permit(:title, :description)}\n\n"
-        # print "--------------------------------------------------\n\n"
-
 
         params.require(:article).permit(:title, :description)
 
 
     end
 
+end
+
+
+# Helper for printing to console
+def print_to_console(input)
+    print "\n--------------------------------------------------\n"
+    print "#{input}\n"
+    print "--------------------------------------------------\n\n"
 end
