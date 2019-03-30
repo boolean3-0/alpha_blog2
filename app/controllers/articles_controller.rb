@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+    # Displays new article form (new.html.erb)
     def new
         # Create a new instance of Article, our model class for the 
         # articles table. This instance variable is then available in
@@ -8,12 +9,20 @@ class ArticlesController < ApplicationController
         # https://medium.com/@eric.programmer/removing-the-hack-in-rails-controllers-52396463c40d
         @article = Article.new
 
-
+        print_to_console(params)
 
     end
 
-    # The create method automatically receives params from the form submission.
-    # (The form is contained in new.html.erb.)
+    # Displays edit article form (edit.html.erb)
+    def edit
+        @article = Article.find(params[:id])
+    end
+
+
+
+    # The create method automatically receives params from the new article form submission.
+    # (This form is contained in new.html.erb.)
+    # Thus, it handles the new article form submission.
     def create
 
         # The line below lets us see params[:article].
@@ -23,6 +32,7 @@ class ArticlesController < ApplicationController
         # See: https://eileencodes.com/posts/actioncontroller-parameters-now-returns-an-object-instead-of-a-hash/
         # render(plain: (params[:article].inspect))
         
+
         @article = Article.new(article_params)
 
         if @article.save
@@ -44,6 +54,21 @@ class ArticlesController < ApplicationController
         end
 
     end
+
+    # Handles the edit article form submission (edit.html.erb)
+    def update
+        @article = Article.find(params[:id])
+
+        # print_to_console(params)
+
+        if @article.update(article_params)
+
+            flash[:notice] = "Article was successfully updated."
+            redirect_to article_path(@article)
+        else
+            render 'edit'
+        end
+    end
         
     def show
 
@@ -52,6 +77,7 @@ class ArticlesController < ApplicationController
         @article = Article.find(params[:id])
     end
 
+    # Whitelist whatever has been submitted
     private
     def article_params
 
