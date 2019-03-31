@@ -1,4 +1,7 @@
 class ArticlesController < ApplicationController
+    # The following line tells Rails to call the set_article method (private
+    # method defined below) right before the edit, update, show, and destroy actions.
+    before_action :set_article, only: [:edit, :update, :show, :destroy]
 
     def index
         # Grab all articles in database
@@ -23,7 +26,7 @@ class ArticlesController < ApplicationController
 
     # Displays edit article form (edit.html.erb)
     def edit
-        @article = Article.find(params[:id])
+        
     end
 
 
@@ -65,7 +68,7 @@ class ArticlesController < ApplicationController
 
     # Handles the edit article form submission (edit.html.erb)
     def update
-        @article = Article.find(params[:id])
+        
 
         # print_to_console(params)
 
@@ -82,12 +85,12 @@ class ArticlesController < ApplicationController
 
         # print_to_console(params)
 
-        @article = Article.find(params[:id])
+        
     end
 
 
     def destroy
-        @article = Article.find(params[:id])
+        
 
         @article.destroy
 
@@ -96,14 +99,20 @@ class ArticlesController < ApplicationController
         redirect_to articles_path
     end
 
-    # Whitelist whatever has been submitted
+    
     private
-    def article_params
+
+        def set_article
+            @article = Article.find(params[:id])
+        end
+
+        # Whitelist whatever has been submitted
+        def article_params
 
         params.require(:article).permit(:title, :description)
 
 
-    end
+        end
 
 end
 
