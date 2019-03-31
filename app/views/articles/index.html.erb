@@ -17,6 +17,11 @@
 
             <td><%= link_to 'Edit', edit_article_path(article) %></td>
             <td><%= link_to 'Show', article_path(article) %></td>
+
+            <%# The "method: :delete" part tells Rails that we want the articles#destroy action,
+            not the articles#show action. %>
+            <td><%= link_to 'Delete', article_path(article), method: :delete, 
+                data: {confirm: 'Are you sure?'} %></td>
         </tr>
     <% end %>
 </table>

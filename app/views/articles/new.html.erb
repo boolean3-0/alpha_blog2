@@ -1,41 +1,8 @@
 <h1>Create an article</h1>
 
+<%# Render the partial contained in the _form.html.erb file %>
+<%= render 'form' %>
 
-<%# Display error messages if we were unable to put the article into the articles table %>
-<% if @article.errors.any? %>
-    <h2>The following errors prevented the article from getting created:</h2>
-    <ul>
-        <% @article.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-        <% end %>
-    </ul>
-<% end %>
-
-
-<%#
-Here we use a form_for helper.
-For more info about form helpers in Rails, see:
-https://guides.rubyonrails.org/form_helpers.html
-%>
-<%# Note that hte @article variable used below
-must be initialized in ArticlesController. %>
-<%= form_for @article do |f| %>
-    <p>
-        <%= f.label :title %>
-        <br/>
-        <%= f.text_field :title %>
-    </p>
-    <p>
-        <%= f.label :description %>
-        <br/>
-        <%= f.text_area :description %>
-
-    </p>
-
-    <p>
-        <%= f.submit %>
-    </p>
-
-<% end %>
-
-<%= link_to "Back to articles listing", articles_path %>
+<%# Note that we must always specify the relative path to the file.
+E.g., if the file was contained in a "share" folder in the same directory,
+we would put: render 'share/form' %>
