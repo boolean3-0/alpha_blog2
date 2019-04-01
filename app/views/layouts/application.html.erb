@@ -23,6 +23,8 @@
       print "flash[:notice]: #{flash[:notice]}\n"
       print "--------------------------------------------------\n\n"
     %> 
+
+    <%= render 'layouts/navigation' %>
     
     <%# By default Rails looks for the messages partial in the articles folder
     since that is where the views for our actions (related to articles) are.
@@ -30,7 +32,10 @@
     <%# Note: He includes this partial because he recommends having as little code
     as possible in the application.html.erb file. %>
     <%= render 'layouts/messages' %>
-
-    <%= yield %>
+    
+    <%# Create a container so that elements aren't flush against the edge of the screen. %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

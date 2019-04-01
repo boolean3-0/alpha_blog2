@@ -6,9 +6,32 @@
 // If you want to make custom changes to the library Bootstrap makes available for you, such
 // as making navigation bars a different color, you would do that here above the import statements in
 // your custom css.scss file.
+// Note that this is where you change default stylings--not stylings by id or class.
+// The latter should be done below the import statements.
+
+// Make the navigation bar blue by default
+$navbar-default-bg: #08088A;
 
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+// To see the element that has id "logo", go the the _navigation.html.erb file.
+#logo {
+    float: left;
+    font-size: 1.7em;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    font-weight: bold;
+}
 
+#logo:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+
+.center {
+    text-align: center;
+}
