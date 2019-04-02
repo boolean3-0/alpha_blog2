@@ -49,7 +49,8 @@ class ArticlesController < ApplicationController
         if @article.save
             # See: https://api.rubyonrails.org/classes/ActionDispatch/Flash.html
             # Also: http://www.xyzpub.com/en/ruby-on-rails/3.2/flash.html
-            flash[:notice] = 'Article was successfully created.'
+            # Note that :success gives you green
+            flash[:success] = 'Article was successfully created.'
 
             # This redirects to the articles#show action for this article.
             # Remember, to get the path for the show action, run "rails routes"
@@ -74,7 +75,7 @@ class ArticlesController < ApplicationController
 
         if @article.update(article_params)
 
-            flash[:notice] = 'Article was successfully updated.'
+            flash[:success] = 'Article was successfully updated.'
             redirect_to article_path(@article)
         else
             render 'edit'
@@ -94,7 +95,8 @@ class ArticlesController < ApplicationController
 
         @article.destroy
 
-        flash[:notice] = "Article was successfully deleted."
+        # :danger makes it red
+        flash[:danger] = "Article was successfully deleted."
 
         redirect_to articles_path
     end

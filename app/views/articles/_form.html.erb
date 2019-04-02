@@ -1,18 +1,14 @@
 <%# This is a partial, as indicated by the _ in the file name.
 Partials allow us to reuse code. %>
 
-
-<%# Display error messages %>
-<% if @article.errors.any? %>
-    <h2>The following errors prevented the article from getting created:</h2>
-    <ul>
-        <% @article.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-        <% end %>
-    </ul>
-<% end %>
-
-
+<%# Render the partial contained in views/shared/_errors.html.erb %>
+<%# It displays errors messages. %>
+<%# Note that we pass in @article as obj. We could simply reference @article in the _errors partial since
+instance variables automatically get passed along to rendered partials, but since _errors is in the
+/shared directory, we want to be able to run its code from multiple /view subdirectories. Thus,
+we want _errors to be able to work with other objects that might have errors attached (e.g., @user).
+Therefore, we pass in @article as obj. %>
+<%= render 'shared/errors', obj: @article %>
 
 <%#
 Here we use a form_for helper.

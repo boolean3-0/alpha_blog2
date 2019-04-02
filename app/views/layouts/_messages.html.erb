@@ -1,5 +1,18 @@
-<% flash.each do |name, msg| %>
-    <ul>
-        <li><%= msg %></li>
-    </ul>
-<% end %>
+<%# Flash a message to the user %>
+<%# E.g., error message, success message, etc. %>
+
+<div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+        <%# The name parameter is the message type. E.g., "danger," "success," etc. %>
+        <% flash.each do |name, msg| %>
+            <%# Note the use of the double quotes inside single quotes in the line below. %>
+            <div class='alert alert-<%= "#{name}" %>'>
+                <%# Create an X (close popup icon) so that users can dismiss the message. %>
+                <%# The &#215 part is responsible for actually causing the X icon to be displayed (as %>
+                <%# opposed to some other icon). %>
+                <a href="#" class="close" data-dismiss="alert">&#215;</a>
+                <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+            </div>
+        <% end %>
+    </div>
+</div>

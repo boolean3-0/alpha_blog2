@@ -1,0 +1,30 @@
+<%# The views/shared directory is a directory we created. It holds partials that need to be shared between multiple
+/view subdirectories. %>
+
+<%# Display error messages %>
+<%# Note that we expect whatever calls this partial to pass in obj as an argument--this increases generality.
+E.g., we are able to display error messages for user objects and article objects. %>
+<% if obj.errors.any? %>
+    <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+
+                        <%# The pluralize function makes it so that if you get one error it will
+                        put "error", but if you get multiple errors it will put "errors." %>
+                        <%= pluralize(obj.errors.count, "error") %>
+                        prohibited this article from being saved:
+                    </h2>
+                    <div class="panel/body">
+                        <ul>
+                            <% obj.errors.full_messages.each do |msg| %>
+                                <li><%= msg %></li>
+                            <% end %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>
