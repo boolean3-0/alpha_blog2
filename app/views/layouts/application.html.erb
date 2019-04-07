@@ -39,5 +39,8 @@
     </div>
 
     <%= render 'layouts/footer' %>
+
+    <%# Causes there to be a display of params if we are working in the development environment %>
+    <%= debug(params) if Rails.env.development? %>
   </body>
 </html>

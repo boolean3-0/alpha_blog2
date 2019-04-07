@@ -1,4 +1,10 @@
 class User < ApplicationRecord
+    # Note the plural: articles
+    has_many :articles
+
+    # Before a user is saved into the database, downcase the email (i.e., make it lowercase)
+    # See: https://guides.rubyonrails.org/active_record_callbacks.html
+    before_save { self.email = email.downcase }
 
     validates :username, presence: true, 
                 uniqueness: { case_sensitive: false },

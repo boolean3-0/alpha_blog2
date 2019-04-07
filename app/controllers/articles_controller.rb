@@ -36,6 +36,12 @@ class ArticlesController < ApplicationController
     # Thus, it handles the new article form submission.
     def create
 
+        # Uses the byebug gem (automatically included in Rails) to create a breakpoint
+        # so that we can see the values of variables at this point + run through
+        # execution line by line from here on out.
+        # See: https://github.com/deivid-rodriguez/byebug
+        # debugger
+
         # The line below lets us see params[:article].
         # I added parentheses to make it easier to read, but it can also
         # be written as "render plain: params[:article].inspect".
@@ -45,6 +51,9 @@ class ArticlesController < ApplicationController
         
 
         @article = Article.new(article_params)
+
+        # Hard-code the user/user_id for now
+        @article.user = User.first
 
         if @article.save
             # See: https://api.rubyonrails.org/classes/ActionDispatch/Flash.html
