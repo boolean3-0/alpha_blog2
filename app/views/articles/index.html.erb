@@ -12,7 +12,17 @@
                 <div class="article-body">
                     <%# Truncate the article's description to 100 characters %>
                     <%= truncate(article.description, length: 100) %>
+
+                    <div class="article-meta-details">
+                        <%# The if statement is a temporary fix because at the time of writing,
+                        some articles in the database aren't associated to users. %>
+                        <small>Created by: <%= article.user.username if article.user %>,
+                                <%= time_ago_in_words(article.created_at) %> ago,
+                                last updated: <%= time_ago_in_words(article.updated_at) %> ago</small>
+                    </div>
                 </div>
+
+
                 <div class="article-actions">
                     <%= link_to "Edit this article", edit_article_path(article), class: "btn btn-xs btn-primary" %>
 
