@@ -19,4 +19,13 @@ class User < ApplicationRecord
                 uniqueness: { case_senitive: false },
                 format: { with: VALID_EMAIL_REGEX }
 
+
+    has_secure_password
+
+    # IMPORTANT: Because we are using the bcrypt gem, despite the fact that the 
+    # attribute is called "password_digest", we can still simply refer to it as "password".
+    # This is called a "virtual attribute."
+    # E.g., in the Rails console we can do "user.password = "1234". bcrypt then
+    # converts this into a hash digest, which is what is actually stored in the 
+    # "password_digest" column.
 end

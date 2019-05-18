@@ -49,6 +49,7 @@ class ArticlesController < ApplicationController
         # See: https://eileencodes.com/posts/actioncontroller-parameters-now-returns-an-object-instead-of-a-hash/
         # render(plain: (params[:article].inspect))
         
+        # print_to_console(params)
 
         @article = Article.new(article_params)
 
@@ -69,6 +70,13 @@ class ArticlesController < ApplicationController
             # the article id behind the scenes.)
             redirect_to article_path(@article)
         else
+
+            # print "\n--------------------------------------------------\n"
+            # puts @article
+            # print "--------------------------------------------------\n\n"
+
+            # print_to_console(@article.description)
+
             # Render the new.html.erb template once again if we fail to save
             # We could also use a symbol: "render :new"
             render 'new'
@@ -120,7 +128,7 @@ class ArticlesController < ApplicationController
         # Whitelist whatever has been submitted
         def article_params
 
-        params.require(:article).permit(:title, :description)
+            params.require(:article).permit(:title, :description)
 
 
         end
