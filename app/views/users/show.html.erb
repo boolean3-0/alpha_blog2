@@ -10,6 +10,15 @@
 
 <h4 align="center"><%= @user.username %>'s Articles</h4>
 
+
+<div class="center">
+    <%= will_paginate @user_articles %>
+</div>
+
 <%# We have to use the full path since the partial we want is in the views/articles folder (a different
 folder). %>
-<%= render 'articles/article', obj: @user.articles %>
+<%= render 'articles/article', obj: @user_articles %>
+
+<div class="center">
+    <%= will_paginate @user_articles %>
+</div>

@@ -4,8 +4,12 @@ class ArticlesController < ApplicationController
     before_action :set_article, only: [:edit, :update, :show, :destroy]
 
     def index
-        # Grab all articles in database
-        @articles = Article.all
+
+        # @articles = Article.all
+        
+        # See https://github.com/mislav/will_paginate for info about this syntax and the
+        # will_paginate gem.
+        @articles = Article.paginate(page: params[:page], per_page: 5)
 
         # print_to_console(@articles)
     end
