@@ -16,6 +16,14 @@ Rails.application.routes.draw do
   # index article path
   resources :articles
 
+  get 'signup', to: 'users#new'
+
+  # The except argument tells Rails that we want all the routes except the users#new route,
+  # which we already have as "signup".
+  resources :users, except: [:new]
+
+  # This is another possible fix if we don't want to use the resources method. See lecture 119.
+  # post 'users', to: 'users#create'
 
 
 end
