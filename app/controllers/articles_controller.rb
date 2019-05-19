@@ -87,6 +87,7 @@ class ArticlesController < ApplicationController
     # Handles the edit article form submission (edit.html.erb)
     def update
         
+        # print_to_console(@article)
 
         # print_to_console(params)
 
