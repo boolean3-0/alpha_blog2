@@ -1,7 +1,18 @@
 class ArticlesController < ApplicationController
     # The following line tells Rails to call the set_article method (private
     # method defined below) right before the edit, update, show, and destroy actions.
+    # Note that if you have multiple calls to before_action in a controller, the actions
+    # are run from top to bottom. I.e., always make sure that your before_actions calls
+    # are in the order that you want them to execute.
     before_action :set_article, only: [:edit, :update, :show, :destroy]
+
+    # For all the actions except the index and show actions, we need the user to be logged in.
+    # We also have to make sure that, even for logged-in users, they can't edit 
+    # or destory articles they didn't create.
+    # Note that including this in the controller safeguards against people reaching pages they shouldn't
+    # have access to through the URL.
+    before_action :require_user, except: [:index, :show]
+    before_action :require_same_user, only: [:edit, :update, :destroy]
 
     def index
 
@@ -136,6 +147,20 @@ class ArticlesController < ApplicationController
             params.require(:article).permit(:title, :description)
 
 
+        end
+
+        # Used to ensure that users can't edit/delete articles they didn't create
+        def require_same_user
+
+            # We know current_user isn't nil because we ran require_user before this method.
+            # See the order of the before_action calls at the top of this controller.
+            # Likewise, we know that @article is defined because set_article is called before
+            # this method thanks to the order of our before_action calls.
+            if current_user != @article.user
+                flash[:danger] = "You can only edit or delete your own articles."
+                redirect_to root_path
+
+            end
         end
 
 end
