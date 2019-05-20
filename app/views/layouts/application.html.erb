@@ -44,5 +44,7 @@
     <%= debug(params) if Rails.env.development? %>
 
     <%= debug(session[:user_id]) if Rails.env.development? %>
+
+    <%= debug(@current_user) if Rails.env.development? %>
   </body>
 </html>

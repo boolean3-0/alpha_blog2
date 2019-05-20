@@ -60,19 +60,28 @@ https://getbootstrap.com/docs/3.3/components/#navbar %>
       </form> %>
       <ul class="nav navbar-nav navbar-right">
 
-        <%# Because the logout path is handled by a delete action, we have to
-        specify as an argument that the action is delete. %>
-        <li><%= link_to 'Log Out', logout_path, method: :delete %></li>
-        <%# <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li> %>
+        <% if logged_in? %>
+          <%# Because the logout path is handled by a delete action, we have to
+          specify as an argument that the action is delete. %>
+          <li><%= link_to 'Log Out', logout_path, method: :delete %></li>
+
+
+          <%# <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+            </ul>
+          </li> %>
+
+        <% else %>
+          <li><%= link_to 'Log In', login_path %></li>
+          <li><%= link_to 'Sign Up', signup_path %></li>
+        <% end %>
+    
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
