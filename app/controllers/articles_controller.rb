@@ -68,8 +68,8 @@ class ArticlesController < ApplicationController
 
         @article = Article.new(article_params)
 
-        # Hard-code the user/user_id for now
-        @article.user = User.first
+        # Set the creator to be the current user
+        @article.user = current_user
 
         if @article.save
             # See: https://api.rubyonrails.org/classes/ActionDispatch/Flash.html
@@ -171,4 +171,10 @@ def print_to_console(input)
     print "\n--------------------------------------------------\n"
     print "#{input}\n"
     print "--------------------------------------------------\n\n"
+end
+
+# Method to test something
+def test
+    session[:user_id] = nil
+    current_user
 end

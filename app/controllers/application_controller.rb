@@ -14,7 +14,22 @@ class ApplicationController < ActionController::Base
 
         # print_to_console(session[:user_id])
 
+        # debugger
+
+        # print_to_console('Before the statement')
+        # print_to_console(@current_user)
+
         (@current_user ||= User.find(session[:user_id])) if session[:user_id]
+
+        # print_to_console('After the statement')
+        # print_to_console(@current_user)
+
+        # if !session[:user_id]
+        #     return nil
+        # else
+        #     return (@current_user ||= User.find(session[:user_id]))
+        # end
+
     end
 
     # Return whether a user is logged in currently

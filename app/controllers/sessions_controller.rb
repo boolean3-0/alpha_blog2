@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
 
     # Renders a login form
     def new
-
+        # debugger
     end
 
     # Handles the login form submission, starts the session, and displays 
@@ -62,7 +62,17 @@ class SessionsController < ApplicationController
     # Stops the session and moves the user to the logged-out state
     def destroy
 
+        # print_to_console('Inside the sessions_controller destroy method')
+        # print_to_console('Running current_user before setting user_id to nil')
+        # current_user
+
         session[:user_id] = nil
+        # puts "I AM IN THE DESTROY ACTION: session[:user_id] = #{session[:user_id]}"
+        # current_user
+
+        # print_to_console('Running current_user after setting user_id to nil')
+        # current_user
+
         flash[:success] = "You have logged out."
         redirect_to root_path
 
