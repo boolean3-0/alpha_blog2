@@ -72,7 +72,8 @@ https://getbootstrap.com/docs/3.3/components/#navbar %>
 
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" 
-                aria-expanded="false">Your Profile <span class="caret"></span></a>
+                aria-expanded="false">Your Profile <%= "(Admin)" if current_user.admin? %>
+                <span class="caret"></span></a>
             <ul class="dropdown-menu">
 
               <%# Note that the edit_user_path(current_user) call in the line below won't blow

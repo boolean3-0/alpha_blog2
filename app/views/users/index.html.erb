@@ -19,6 +19,13 @@
                     <%# user.articles.count obviously returns the number of articles written by that user. %>
                     <%# Notice that we only want to display something if the user has written some number of articles. %>
                     <li><small><%= pluralize(user.articles.count, "article") if user.articles %></small></li>
+
+                    <% if logged_in? && current_user.admin? %>
+                        <li><%= link_to "Delete This User", user_path(user), method: :delete, 
+                            data: { confirm: "Are you sure want to delete this user and 
+                            all their articles?" } %></li>
+                    <% end %>
+
                 </div>
             </div>
         </ul>

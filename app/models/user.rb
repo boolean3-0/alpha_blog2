@@ -1,6 +1,8 @@
 class User < ApplicationRecord
     # Note the plural: articles
-    has_many :articles
+    # The "dependent: :destroy" part ensures that if a user is deleted, all of that
+    # user's articles will be deleted too.
+    has_many :articles, dependent: :destroy
 
     # Before a user is saved into the database, downcase the email (i.e., make it lowercase)
     # See: https://guides.rubyonrails.org/active_record_callbacks.html

@@ -25,7 +25,7 @@ it is used in articles/index.html.erb and users/show.html.erb %>
 
                 <%# Only display the delete and edit buttons if the user is logged in and actually
                 wrote that article. %>
-                <% if logged_in? && current_user == article.user %>
+                <% if logged_in? && (current_user == article.user || current_user.admin?) %>
                     <div class="article-actions">
                         <%= link_to "Edit this article", edit_article_path(article), class: "btn btn-xs btn-primary" %>
 

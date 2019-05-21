@@ -3,9 +3,11 @@ class UsersController < ApplicationController
     # Before running the edit, update, or show actions,
     # run the set_user method. The point is to avoid
     # repeating code.
-    before_action :set_user, only: [:edit, :update, :show]
+    before_action :set_user, only: [:edit, :update, :show, :destroy]
 
-    before_action :require_same_user, only: [:edit, :update]
+    before_action :require_same_user, only: [:edit, :update, :destroy]
+
+    before_action :require_admin, only: [:destroy]
 
     def index
         # @users = User.all
@@ -73,6 +75,18 @@ class UsersController < ApplicationController
         @user_articles = @user.articles.paginate(page: params[:page], per_page: 5)
     end
 
+    def destroy
+
+        # The line below destroys not only the user but all of the user's articles.
+        # This is because of the "has_many :articles, dependent: :destroy" line at the top
+        # of the User model class.
+        @user.destroy
+
+        flash[:danger] = "The user and all articles created by the user have been deleted."
+
+        redirect_to users_path
+    end
+
     # The private keyword applies to all methods below it.
     private
 
@@ -86,8 +100,15 @@ class UsersController < ApplicationController
 
         def require_same_user
             
-            if current_user != @user
+            if current_user != @user && !current_user.admin?
                 flash[:danger] = "You can only edit your own account."
+                redirect_to root_path
+            end
+        end
+
+        def require_admin
+            if logged_in? && !current_user.admin?
+                flash[:danger] = "Only admin users can perform that action."
                 redirect_to root_path
             end
         end

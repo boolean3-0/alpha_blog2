@@ -156,7 +156,7 @@ class ArticlesController < ApplicationController
             # See the order of the before_action calls at the top of this controller.
             # Likewise, we know that @article is defined because set_article is called before
             # this method thanks to the order of our before_action calls.
-            if current_user != @article.user
+            if current_user != @article.user && !current_user.admin?
                 flash[:danger] = "You can only edit or delete your own articles."
                 redirect_to root_path
 
