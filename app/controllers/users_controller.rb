@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
     def new
         @user = User.new
-        
+
     end
 
     def create
@@ -37,8 +37,12 @@ class UsersController < ApplicationController
         # debugger
 
         if @user.save
+
+            # This line ensure that the user is automatically logged in after signing up.
+            session[:user_id] = @user.id
+
             flash[:success] = "Congratulations! You have joined the movement #{@user.username}."
-            redirect_to articles_path
+            redirect_to user_path(@user)
         else
             # print_to_console(@user.username)
             render 'new'
